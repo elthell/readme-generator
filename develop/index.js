@@ -2,7 +2,6 @@
 // inquirer, fs, utils js files
 const inquirer = require("inquirer");
 const fs = require("fs");
-const util = require("util");
 const generateMarkdown = require("./utils/generateMarkdown");
 
 // TODO: Create an array of questions for user input
@@ -11,45 +10,72 @@ const questions = [
   {
     type: "input",
     name: "title",
-    message: "What is the title of your project?",
+    message: `What is the title of your project?`,
+    validate: (input) => {
+      if (input) {
+        return true;
+      } else {
+        console.log(`Please enter your project title.`);
+        return false;
+      }
+    },
   },
   {
     type: "input",
     name: "description",
-    message: "What is the description of your project?",
+    message: `What is the description of your project?`,
+    validate: (input) => {
+      if (input) {
+        return true;
+      } else {
+        console.log(`Please describe your project.`);
+        return false;
+      }
+    },
   },
   {
     type: "input",
     name: "installation",
     message:
-      "Please list installation instructions. If there are none, please enter 'N/A'.",
+      `Please list installation instructions. 
+      If there are none, please enter 'N/A'.`,
   },
   {
     type: "input",
     name: "usage",
     message:
-      "Please list usage instructions. Add deployment links and screenshots/videos as necessary.",
+      `Please list usage instructions. 
+      Add deployment links and screenshots/videos as necessary.`,
+    validate: (input) => {
+      if (input) {
+        return true;
+      } else {
+        console.log(`Please describe how to use your project.`);
+        return false;
+      }
+    },
   },
   {
     type: "input",
     name: "credits",
     message:
-      "Please credit all collaborators, third-party assets, and tutorials as needed. If there are none, please enter 'N/A'.",
+      `Please credit all collaborators, third-party assets, and tutorials as needed. 
+      If there are none, please enter 'N/A'.`,
   },
   {
     //checkbox for license choice
     type: "checkbox",
     name: "license",
-    message: "Please choose a license.",
+    message: `Please choose a license.`,
     choices: [
-        "GNU AGPLv3",
-        "GNU GPLv3",
-        "GNU LGPLv3",
-        "Mozilla Public License 2.0",
-        "Apache License 2.0",
-        "MIT License",
-        "Boost Software License 1.0",
-        "The Unlicense",
+      "GNU AGPLv3",
+      "GNU GPLv3",
+      "GNU LGPLv3",
+      "Mozilla Public License 2.0",
+      "Apache License 2.0",
+      "MIT License",
+      "Boost Software License 1.0",
+      "The Unlicense",
     ],
   },
 ];
@@ -78,7 +104,6 @@ async function init() {
     // make readme from markdown
     // await userReadMe("READMESample.md", userMarkdown);
     writeToFile("READMESample.md", userMarkdown);
-
   } catch (error) {
     console.log("Error : " + error);
   }

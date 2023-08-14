@@ -19,7 +19,7 @@ Video demonstration:
 
 ## Credits
 
-Node.js Util: https://nodejs.org/dist/latest-v8.x/docs/api/util.html#util_util
+NPM Inquirer: https://www.npmjs.com/package/inquirer
 
 Async functions: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 
