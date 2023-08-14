@@ -63,7 +63,7 @@ function writeToFile(fileName, data) {
   });
 }
 
-const userReadMe = util.promisify(writeToFile);
+// const userReadMe = util.promisify(writeToFile);
 // TODO: Create a function to initialize app
 async function init() {
   try {
@@ -72,11 +72,12 @@ async function init() {
     console.log(userInput);
 
     // format answers in markdown
-    const userMarkdown = generateMarkdown(userAnswers);
+    const userMarkdown = generateMarkdown(userInput);
     console.log(userMarkdown);
 
     // make readme from markdown
-    await userReadMe("README.md", myMarkdown);
+    // await userReadMe("READMESample.md", userMarkdown);
+    writeToFile("READMESample.md", userMarkdown);
 
   } catch (error) {
     console.log("Error : " + error);

@@ -1,97 +1,89 @@
-// TODO: Create a function that returns a license badge based on which license is passed in
-// If there is no license, return an empty string
-function renderLicenseBadge(license) {
-  let licenseBadge = '';
-
-  if (license) {
-    licenseBadge = `![${license} badge](https://img.shields.io/badge/License:-${license}-blue)`;
-  };
-
-  return licenseBadge;
-} 
-
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
-function renderLicenseLink(license) {
-  let licenseLink = '';
-
-  // all license links
-  if (license === 'GNU AGPLv3') {
-    licenseLink = 'https://choosealicense.com/licenses/agpl-3.0/';
-  };
-  if (license === 'GNU GPLv3') {
-    licenseLink = 'https://choosealicense.com/licenses/gpl-3.0/';
-  };
-  if (license === 'GNU LGPLv3') {
-    licenseLink = 'https://choosealicense.com/licenses/lgpl-3.0/';
-  };
-  if (license === 'Mozilla Public License 2.0') {
-    licenseLink = 'https://choosealicense.com/licenses/mpl-2.0/';
-  };
-  if (license === 'Apache License 2.0') {
-    licenseLink = 'https://choosealicense.com/licenses/apache-2.0/';
-  };
-  if (license === 'MIT License') {
-    licenseLink = 'https://choosealicense.com/licenses/mit/';
-  };
-  if (license === 'Boost Software License 1.0') {
-    licenseLink = 'https://choosealicense.com/licenses/bsl-1.0/';
-  };
-  if (license === 'The Unlicense') {
-    licenseLink = 'https://choosealicense.com/licenses/unlicense/';
-  };
-
-  return licenseLink;
-} 
-
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string --> if/else statement in markdown generator
-function renderLicenseSection(license) {
-  `## License
-  
-  This application has the ${license}.`
-  renderLicenseLink(license);
-}
-
 // TODO: Create a function to generate markdown for README
+// moved all license generation into markdown generation for simplicity
 function generateMarkdown(data) {
+  // empty variables for license
+  let userLicense = `${data.license}`;
+  let licenseLink = "";
+  let licenseBadge = "";
 
-  let userLicense = data.license
+  // set link and badge by license selection
+  if (userLicense === "GNU AGPLv3") {
+    licenseLink = "https://choosealicense.com/licenses/agpl-3.0/";
+    licenseBadge = "https://img.shields.io/badge/license-agpl_3.0-blue";
+  }
+  if (userLicense === "GNU GPLv3") {
+    licenseLink = "https://choosealicense.com/licenses/gpl-3.0/";
+    licenseBadge = "https://img.shields.io/badge/license-gpl_3.0-blue";
+  }
+  if (userLicense === "GNU LGPLv3") {
+    licenseLink = "https://choosealicense.com/licenses/lgpl-3.0/";
+    licenseBadge = "https://img.shields.io/badge/license-lgpl_3.0-blue";
+  }
+  if (userLicense === "Mozilla Public License 2.0") {
+    licenseLink = "https://choosealicense.com/licenses/mpl-2.0/";
+    licenseBadge = "https://img.shields.io/badge/license-mpl_2.0-blue";
+  }
+  if (userLicense === "Apache License 2.0") {
+    licenseLink = "https://choosealicense.com/licenses/apache-2.0/";
+    licenseBadge = "https://img.shields.io/badge/license-apache_2.0-blue";
+  }
+  if (userLicense === "MIT License") {
+    licenseLink = "https://choosealicense.com/licenses/mit/";
+    licenseBadge = "https://img.shields.io/badge/license-mit-blue";
+  }
+  if (userLicense === "Boost Software License 1.0") {
+    licenseLink = "https://choosealicense.com/licenses/bsl-1.0/";
+    licenseBadge = "https://img.shields.io/badge/license-bsl_1.0-blue";
+  }
+  if (userLicense === "The Unlicense") {
+    licenseLink = "https://choosealicense.com/licenses/unlicense/";
+    licenseBadge = "https://img.shields.io/badge/license-unlicense-blue";
+  }
 
-  let newMarkdown = 
-    `# ${data.title}
+  // generate readme w/ markdown
+  let newMarkdown = `# ${data.title}
 
-    ## Description`
-    renderLicenseBadge(userLicense)
+  ## Description
+  ![${userLicense} badge](${licenseBadge})
 
-    `${data.description}
+  ${data.description}
 
-    ## Table of Contents
-    * [Installation](#installation)
-    * [Usage](#usage)
-    * [Credits](#credits)
-    * [License](#license)
+  ## Table of Contents
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Credits](#credits)
+  * [License](#license)
     
 
-    ## Installation
+  ## Installation
 
-    ${data.installation}
+  ${data.installation}
 
-    ## Usage
+  ## Usage
 
-    ${data.usage}
+  ${data.usage}
 
-    ## Credits
+  ## Credits
 
-    ${data.credits}`;
+  ${data.credits}
+    
+  `;
 
-    if (userLicense) {
-      renderLicenseSection(userLicense);
-
-    } else newMarkdown +=
-      `## License
+  // license section if one was chosen
+  if (userLicense) {
+    newMarkdown += 
+  `## License
+  
+  This application has the ${userLicense}.
       
-      N/A`;
+  To learn more click here: ${licenseLink}.
+  `;
+  } else
+    newMarkdown += 
+  `## License
+      
+  N/A
+  `;
 
   return newMarkdown;
 }
