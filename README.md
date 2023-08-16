@@ -15,7 +15,8 @@ The application will be invoked by using the following command:
 node index.js
 ```
 
-Video demonstration: 
+Demonstration: 
+![Gif demonstrating how the app creates a README from user input.](./develop/assets/README%20Generator%20Demo.gif)
 
 ## Credits
 
